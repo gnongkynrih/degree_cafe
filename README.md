@@ -1,3 +1,9 @@
+after cloning the project
+-- run composer install
+-- run npm install
+-- run npm run dev
+-- execute php artisan migrate
+
 To create a new model and migratioon together
 php artisan make:model Category -m
 -- where -m means create the migration file
