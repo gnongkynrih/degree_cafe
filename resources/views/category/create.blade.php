@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+  <a href="{{route('category.index')}}">Back</a>
   <form method="POST" action="{{route('category.store')}}">
     @csrf
     <label>Category Name</label>
