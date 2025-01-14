@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MenuController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,6 +16,11 @@ Route::post('/category/store',[CategoryController::class,'store'])->name('catego
 Route::delete('/category/delete/{id}',[CategoryController::class,'deleteCategory'])->name('category.destroy');
 Route::get('/category/edit/{id}',[CategoryController::class,'editCategory'])->name('category.edit');
 Route::put('/category/update/{id}',[CategoryController::class,'updateCategory'])->name('category.update');
+
+//Route for menu
+Route::get('/menu/create',[MenuController::class,'create'])->name('menu.create');
+Route::post('/menu/save',[MenuController::class,'store'])->name('menu.store');
+Route::get('/menu',[MenuController::class,'index'])->name('menu.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

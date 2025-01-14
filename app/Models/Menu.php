@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Menu extends Model
 {
     protected $guarded = ['id'];
 
-    public function menus()
+    public function category()
     {
-        return $this->hasMany(Menu::class);
+        return $this->belongsTo(Category::class);
     }
 }

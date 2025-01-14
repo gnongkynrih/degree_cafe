@@ -20,7 +20,8 @@ class CategoryController extends Controller
 
     public function store(Request $request){
         Category::create([
-            'name' => $request->category_name
+            'name' => $request->category_name,
+            'status' =>'active'
         ]);
         // return redirect()->back();
         return redirect()->route('category.index');
