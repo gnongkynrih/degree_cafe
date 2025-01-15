@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('content')
   <h5>Categories</h5>
   <a href="{{ route('category.create')}}">Add New Category</a>
-  <table>
-    <tr>
+  <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
       <th>Sl No</th>
       <th>Category Name</th>
       <th>Status</th>
@@ -18,15 +12,18 @@
       <th>Edit</th>
       <th>Delete</th>
     </tr>
-    
+    </thead>
+    <tbody>
     @foreach ($cat as $category)
-      <tr>
+      <tr class="bg-white border-b border-red-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td>{{ $loop->iteration }}</td>
         <td> <?php echo$category->name; ?></td>
         <td>{{ $category->status }}</td>
         <td>{{ $category->created_at }}</td>
         <td>
-          <a href="{{ route('category.edit', $category->id) }}">Edit</a>
+          <a 
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          href="{{ route('category.edit', $category->id) }}">Edit</a>
         </td>
         <td>
           {{-- confirm if you wants to delete --}}
@@ -36,11 +33,13 @@
           method="POST" >
             @csrf
             @method('DELETE')
-            <button type="submit">Delete</button>
+            <button
+            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+            type="submit">Delete</button>
           </form>
         </td>
       </tr>
     @endforeach
+    </tbody>
   </table>
-</body>
-</html>
+@endsection
