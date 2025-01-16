@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use App\Models\Category;
+use App\Http\Requests\CreateCategoryRequest;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
@@ -24,7 +25,14 @@ class MenuController extends Controller
             ->with('categories',$categories);
     }
 
-    public function store(Request $request){
+    public function store(CreateCategoryRequest $request){
+
+        // $request->validate([
+        //     'name' => 'required|string|min:4|max:25|unique:menus,name',
+        //     'description' => 'nullable|string|min:4',
+        //     'price' => 'required|numeric|min:10',
+        //     'category_id' => 'required|exists:categories,id'
+        // ]);
         // $menu = new Menu();
         // $menu->name = $request->name;
         // $menu->description = $request->description;
@@ -39,6 +47,6 @@ class MenuController extends Controller
             'category_id' => $request->category_id,
             'status' => 'active'
         ]);
-        return redirect()->route('menu.index');
+        return redirect()->route('menu.index')->with('success','Menu added successfully');
     }
 }

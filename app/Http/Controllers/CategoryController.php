@@ -19,12 +19,16 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request){
+        //validate category name
+        $request->validate([
+            'category_name' => 'required|string|min:4|max:25|unique:categories,name'
+        ]);
         Category::create([
             'name' => $request->category_name,
             'status' =>'active'
         ]);
         // return redirect()->back();
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success','Category added successfully');
     }
 
     public function deleteCategory($id){
@@ -32,7 +36,8 @@ class CategoryController extends Controller
         // Category::find($id)->delete();
         $category = Category::find($id); //searches
         $category->delete(); //deletes
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')
+            ->with('success','Category deleted successfully');
     }
 
     public function editCategory($id){

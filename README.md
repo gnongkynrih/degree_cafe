@@ -11,3 +11,6 @@ php artisan make:model Category -m
 
 TO create a controller
 php artisan make:controller CategoryController
+
+We can do validation using form request. TO create a form request
+php artisan make:request CreateCategoryRequest
