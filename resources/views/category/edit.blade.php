@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('content')
+
   <a href="{{route('category.index')}}">Back</a>
-  <form method="POST" action="{{route('category.update',$category->id)}}">
+  <form class="max-w-[600px] mx-auto p-6 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" method="POST" action="{{route('category.update',$category->id)}}">
     @csrf
     @method('PUT')
     <div>
@@ -18,12 +12,16 @@
     </div>
     <div>
       <label>Status</label>
-      <select name="status">
+      {{-- <select name="status">
         <option value="active">Active</option>
         <option value="inactive">Inactive</option>
-      </select>
+      </select> --}}
+      <label class="inline-flex items-center cursor-pointer">
+        <input class="sr-only peer" type="checkbox" name="status" {{ $category->status  =='active' ? 'checked' : '' }}/>
+      <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{$category->status}}</span>
+      </label>
     </div>
-    <button type="submit">Update</button>
+    <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold p-2 px-4 mt-5 rounded" type="submit">Update</button>
   </form>
-</body>
-</html>
+@endsection

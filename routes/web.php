@@ -1,13 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\MenuController;
+use App\Http\Controllers\DegreeCafeController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/degreecafe',[DegreeCafeController::class,'index'])->name('degreecafe.index');
+Route::post('/degreecafe/store',[DegreeCafeController::class,'store'])->name('degreecafe.store');
 
 //create the route for category
 Route::get('/category',[CategoryController::class,'index'])->name('category.index');

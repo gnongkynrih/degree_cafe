@@ -14,7 +14,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        @include('layouts.navigation')
+      @if(Route::has('login'))
+          @include('layouts.navigation')
+      @else
+        
+      @endif
         <main>
           @if(session()->has('success'))
               <div id="alert-success" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">

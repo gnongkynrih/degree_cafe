@@ -45,9 +45,14 @@ class CategoryController extends Controller
         return view('category.edit',compact('category'));
     }
     public function updateCategory(Request $request,$id){
+        if(isset($request->status)){
+            $status= 'active';
+        }else{
+            $status= 'inactive';
+        }
         $category = Category::find($id);
         $category->name = $request->category_name;
-        $category->status = $request->status;
+        $category->status = $status;
         $category->save();
         return redirect()->route('category.index');
     }

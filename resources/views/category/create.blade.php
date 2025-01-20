@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
   <a href="{{route('category.index')}}">Back</a>
-  <form method="POST" action="{{route('category.store')}}">
+  <form  class="max-w-[600px] mx-auto bg-purple-300 p-5" method="POST" action="{{route('category.store')}}">
     @csrf
     <div class="mb-5">
       <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Category Name</label>
