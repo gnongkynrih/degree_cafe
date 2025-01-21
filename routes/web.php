@@ -5,10 +5,10 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DegreeCafeController;
+use App\Http\Controllers\SaleController;
 
-Route::get('/', function () {
-    return view('index');
-});
+
+Route::get('/{id?}',[SaleController::class,'index'])->name('sale.index');
 
 Route::get('/degreecafe',[DegreeCafeController::class,'index'])->name('degreecafe.index');
 Route::post('/degreecafe/store',[DegreeCafeController::class,'store'])->name('degreecafe.store');
