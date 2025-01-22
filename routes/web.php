@@ -6,12 +6,14 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DegreeCafeController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\TableController;
 
-
-Route::get('/{id?}',[SaleController::class,'index'])->name('sale.index');
+Route::get('/table',[TableController::class,'index'])->name('table.index');
+Route::post('/table/store',[TableController::class,'store'])->name('table.store');
 
 Route::get('/degreecafe',[DegreeCafeController::class,'index'])->name('degreecafe.index');
 Route::post('/degreecafe/store',[DegreeCafeController::class,'store'])->name('degreecafe.store');
+
 
 //create the route for category
 Route::get('/category',[CategoryController::class,'index'])->name('category.index');
@@ -36,4 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 require __DIR__.'/auth.php';
+
+Route::get('/{id?}',[SaleController::class,'index'])->name('sale.index');
