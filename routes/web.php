@@ -10,7 +10,7 @@ use App\Http\Controllers\TableController;
 
 Route::get('/table',[TableController::class,'index'])->name('table.index');
 Route::post('/table/store',[TableController::class,'store'])->name('table.store');
-
+Route::put('/table/update/{id}',[TableController::class,'update'])->name('table.update');
 Route::get('/degreecafe',[DegreeCafeController::class,'index'])->name('degreecafe.index');
 Route::post('/degreecafe/store',[DegreeCafeController::class,'store'])->name('degreecafe.store');
 
