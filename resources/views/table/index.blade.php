@@ -36,7 +36,7 @@
 <script>
   $(function(){
     $('.chkStatus').click(async function(){
-        //get the id and remove the S from the id
+        //get the id and remove the S from the id  fetch
         let id = $(this).attr('id').substr(1); 
         let response = await axios.put("{{ route('table.update', ':id') }}".replace(':id', id));
         if(response.status == 200){

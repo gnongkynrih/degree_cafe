@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Models\Category;
+use App\Models\Seat;
 use App\Models\Menu;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
     public function index($id = null){
+        $seats = Seat::where( 'status','=','active' )->get();
         $categories = Category::where('status','=','active')
             ->orderBy('name','asc')->get();
         if($id == null){
@@ -24,6 +25,7 @@ class SaleController extends Controller
         return view('sale.index')
             ->with('categories',$categories)
             ->with('menus',$menus)
+            ->with('seats',$seats)
             ->with('activeLink',$activeLink);
     }
 }
