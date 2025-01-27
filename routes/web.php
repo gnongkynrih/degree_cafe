@@ -40,5 +40,6 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
-
-Route::get('/{id?}',[SaleController::class,'index'])->name('sale.index');
+Route::get('/show-tables',[SaleController::class,'showTables'])->name('sale.show_tables');
+Route::get('/',[SaleController::class,'pos'])->name('sale.pos');
+Route::get('/pos/{table_no}/{id?}',[SaleController::class,'index'])->name('sale.index');

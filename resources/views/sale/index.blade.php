@@ -14,25 +14,18 @@
   </form>
 
   <div class="flex flex-wrap">
-    <a href="{{ route('sale.index') }}" class="block max-w-[15em] p-6 {{ $activeLink =='all' ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
+    <a href="{{ route('sale.index',[$table_no]) }}" class="block max-w-[15em] p-6 {{ $activeLink =='all' ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
         <h5 class="text-center mb-2 text-2xl font-bold tracking-tight {{ $activeLink =='all' ? 'text-white' : 'text-black'}} dark:text-white">All</h5>
       </a>
     @foreach($categories as $category)
-      <a href="{{ route('sale.index', $category->id) }}" class="block max-w-[15em] p-6 {{ $activeLink == $category->id ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
+      <a href="{{ route('sale.index', [$table_no,$category->id]) }}" class="block max-w-[15em] p-6 {{ $activeLink == $category->id ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
         <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$category->name}}</h5>
       </a>
     @endforeach
   </div>
 
   <hr class="m-4">
-    <div class="w-max-[100px] px-6 border bg-red-200 border-gray-200">
-      <select id="seats" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-        <option value="">Select a table no</option>
-        @foreach($seats as $table)
-          <option value="{{ $table->id }}">{{ $table->table_name }}</option>
-        @endforeach
-      </select>
-    </div>
+    <h3 class="text-2xl font-bold tracking-tight bg-purple-600 text-white dark:text-white text-center mb-10">Table No {{ $table_no }}</h3>
     <div class="flex  w-full px-6 border border-gray-200">
       <div class="basis-2/3  rounded flex items-center justify-between">
         <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -52,9 +45,9 @@
                 <td>{{ $menu->price }}</td>
                 <td>
                   <div class="flex">
-                    <button id="M{{ $menu->id }}" class="basis-1/6 minus text-black p-5 ml-5 mr-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">-</button>
+                    <button id="M{{ $menu->id }}" class="basis-1/6 minus text-white text-2xl p-5 ml-5 mr-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-4xl  px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">-</button>
                     <input readonly type="number" name="quantity" id="Q{{ $menu->id }}" value="0" min="1" class="quantity w-16 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-transparent">
-                    <button id="A{{ $menu->id }}" class="basis-1/6 plus text-black p-5 ml-5 mr-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+</button>
+                    <button id="A{{ $menu->id }}" class="basis-1/6 plus text-white text-2xl p-5 ml-5 mr-5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-4xl  px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+</button>
                   </div>
                 </td>
               </tr>
@@ -79,6 +72,11 @@
               <tr><td colspan="3">Grand Total</td><td id="grandTotal"></td></tr>
             </tfoot>
           </table>
+          <div class="text-center">
+            <button class="bg-purple-600 text-white p-2 rounded mt-8">
+              
+              <i class="fa-solid fa-check"></i> &nbsp; Confirm Order</button>
+          </div>
         </div>
   </div>
 @endsection
