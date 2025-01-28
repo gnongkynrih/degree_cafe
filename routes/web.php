@@ -43,3 +43,4 @@ require __DIR__.'/auth.php';
 Route::get('/show-tables',[SaleController::class,'showTables'])->name('sale.show_tables');
 Route::get('/',[SaleController::class,'pos'])->name('sale.pos');
 Route::get('/pos/{table_no}/{id?}',[SaleController::class,'index'])->name('sale.index');
+Route::post('/confirm-order/{table_no}',[SaleController::class,'confirmOrder'])->name('sale.confirmOrder');

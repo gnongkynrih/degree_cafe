@@ -14,18 +14,18 @@
   </form>
 
   <div class="flex flex-wrap">
-    <a href="{{ route('sale.index',[$table_no]) }}" class="block max-w-[15em] p-6 {{ $activeLink =='all' ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
+    <a href="{{ route('sale.index',[$seat->table_name]) }}" class="block max-w-[15em] p-6 {{ $activeLink =='all' ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
         <h5 class="text-center mb-2 text-2xl font-bold tracking-tight {{ $activeLink =='all' ? 'text-white' : 'text-black'}} dark:text-white">All</h5>
       </a>
     @foreach($categories as $category)
-      <a href="{{ route('sale.index', [$table_no,$category->id]) }}" class="block max-w-[15em] p-6 {{ $activeLink == $category->id ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
+      <a href="{{ route('sale.index', [$seat->table_name,$category->id]) }}" class="block max-w-[15em] p-6 {{ $activeLink == $category->id ? 'bg-blue-400' : 'bg-white'}} border border-gray-200 rounded-md shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-2" >
         <h5 class="text-center mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$category->name}}</h5>
       </a>
     @endforeach
   </div>
 
   <hr class="m-4">
-    <h3 class="text-2xl font-bold tracking-tight bg-purple-600 text-white dark:text-white text-center mb-10">Table No {{ $table_no }}</h3>
+    <h3 class="text-2xl font-bold tracking-tight bg-purple-600 text-white dark:text-white text-center mb-10">Table No {{ $seat->table_name }}</h3>
     <div class="flex  w-full px-6 border border-gray-200">
       <div class="basis-2/3  rounded flex items-center justify-between">
         <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -73,8 +73,7 @@
             </tfoot>
           </table>
           <div class="text-center">
-            <button class="bg-purple-600 text-white p-2 rounded mt-8">
-              
+            <button id="btnConfirmOrder" type="button" class="bg-purple-600 text-white p-2 rounded mt-8">
               <i class="fa-solid fa-check"></i> &nbsp; Confirm Order</button>
           </div>
         </div>
@@ -127,6 +126,35 @@
         }else{
           $('#S'+id).remove();
         }
+      });
+
+      $('#btnConfirmOrder').click(function(e){
+        e.preventDefault();
+        let items = [];
+        $('#selectedItems').find('tr').each(function(){
+          var id = $(this).attr('id').substr(1);
+          var quantity = $(this).find('td').eq(1).text();
+          var price = $(this).find('td').eq(2).text();
+          var total = $(this).find('td').eq(3).text();
+          items.push({id, quantity, price, total});
+        });
+        //check if the items is empty
+        if(items.length == 0){
+          Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Please select at least one item!",
+            });
+          return;
+        }
+        $.post('{{ route('sale.confirmOrder',$seat->table_name)}}', {
+          _token: '{{ csrf_token() }}',
+          items: items,
+        }).done(function(response){
+          console.log(response.data);
+        });
+
+        
       });
 });
 </script>
