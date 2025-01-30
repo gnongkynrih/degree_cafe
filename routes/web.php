@@ -44,3 +44,6 @@ Route::get('/show-tables',[SaleController::class,'showTables'])->name('sale.show
 Route::get('/',[SaleController::class,'pos'])->name('sale.pos');
 Route::get('/pos/{table_no}/{id?}',[SaleController::class,'index'])->name('sale.index');
 Route::post('/confirm-order/{table_no}',[SaleController::class,'confirmOrder'])->name('sale.confirmOrder');
+Route::get('/show-table-for-payment',[SaleController::class,'showTableForPayment'])->name('sale.show_table_payment');
+Route::get('/order/{table_no}',[SaleController::class,'getOrdersByTableNo'])->name('sale.getOrdersByTableNo');
+Route::post('/payment/{id}',[SaleController::class,'confirmPayment'])->name('sale.confirmPayment');
