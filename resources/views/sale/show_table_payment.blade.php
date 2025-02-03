@@ -17,7 +17,10 @@
   <div class="basis-1/2">
     <h2 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center mb-10">Order Summary</h2>
     <div id="orderSummary"></div>
-    <button id="btnPay" class="w-full px-4 py-2 mt-4 text-white transition-colors duration-150 bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Pay Now</button>
+    <form action="{{ route('sale.confirmPayment', ':id') }}" id="confirmPaymentForm" method="POST">
+      @csrf
+      <button id="btnPay" class="w-full px-4 py-2 mt-4 text-white transition-colors duration-150 bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Pay Now</button>
+    </form>
   </div>
 </div>
 @endsection
@@ -26,11 +29,11 @@
 <script>
   $('#btnPay').hide();
   let saleId = '';
-  $('.confirm').click(function(){
+  $('.confirm').click(function(e){
+    e.preventDefault();
       let id = $(this).attr('id').substr(1);
-      
-      //use jquery get
       let url ="{{ route('sale.getOrdersByTableNo', ':id') }}".replace(':id',id)
+     
       $.get(url, function(data){
         console.log(data.data);
         $('#orderSummary').html(data.data);
@@ -39,7 +42,8 @@
       })
   });
 
-  $('#btnPay').click(function(){
+  $('#btnPay').click(function(e){
+    e.preventDefault();
     Swal.fire({
         title: "Are you sure you want to pay?",
         showCancelButton: true,
@@ -47,13 +51,15 @@
         cancelButtonText: "No",
       }).then((result) => {
         let url ="{{ route('sale.confirmPayment', ':id') }}".replace(':id',saleId)
-        $.post(url, {
-          _token: '{{ csrf_token() }}',
-        }).done(function(response){
-          if (result.isConfirmed) {
-            Swal.fire("Saved!", "", "success");
-          }
-        });
+        $('#confirmPaymentForm').attr('action', url);
+        $('#confirmPaymentForm').submit();
+        // $.post(url, {
+        //   _token: '{{ csrf_token() }}',
+        // }).done(function(response){
+        //   if (result.isConfirmed) {
+        //     Swal.fire("Saved!", "", "success");
+        //   }
+        // });
         
       });
     

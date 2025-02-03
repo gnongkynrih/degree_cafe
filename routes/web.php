@@ -47,3 +47,7 @@ Route::post('/confirm-order/{table_no}',[SaleController::class,'confirmOrder'])-
 Route::get('/show-table-for-payment',[SaleController::class,'showTableForPayment'])->name('sale.show_table_payment');
 Route::get('/order/{table_no}',[SaleController::class,'getOrdersByTableNo'])->name('sale.getOrdersByTableNo');
 Route::post('/payment/{id}',[SaleController::class,'confirmPayment'])->name('sale.confirmPayment');
+Route::get('/razorpay-payment/{payment}',[SaleController::class,'razorpayPayment'])->name('sale.razorpay_payment');
+Route::post('/process-payment',[SaleController::class,'processPayment'])->name('sale.process_payment');
+Route::get('/razorthankyou',[SaleController::class,'RazorThankYou'])->name('sale.razorthankyou');
+Route::get('/download-receipt/{id}',[SaleController::class,'downloadReceipt'])->name('sale.download_receipt');

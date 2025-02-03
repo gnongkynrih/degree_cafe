@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Carbon\Carbon;
 use App\Models\Menu;
 use App\Models\Sale;
 use App\Models\Seat;
 use App\Models\Order;
+use Razorpay\Api\Api;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\Browsershot\Browsershot;
 
 class SaleController extends Controller
 {
@@ -175,26 +176,82 @@ class SaleController extends Controller
             foreach($sale->orders as $order){
                 $total += $order->quantity * $order->amount;
             }
+            $orderData = [
+                'amount' => $total * 100, //amount in paise
+                'currency' => 'INR'
+            ];
+            //get the api from my .env file
+            $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+            //generate the order id from razorpay
+            $razorpayOrder = $api->order->create($orderData);
+            $order_id = $razorpayOrder->id;
+            
             $sale->invoice_number = $invoiceNumber;
             $sale->total = $total;
             $sale->amount = $total;
-            $sale->status='paid';
+            $sale->status='awaiting';
+            $sale->razorpay_order_id = $order_id;
             $sale->save();
-
+            //store the sale id in a session
+            session(['sale_id' => $sale->id]);
             //update the status of the seat
             $seat = Seat::find($sale->table_no);
             $seat->status = 'active';
             $seat->save();
-           
+            session(['order_id' => $order_id]);
             DB::commit();
-            return response()->json([
-                'sale' => $sale,
-                'message' => 'Payment confirmed successfully'
-            ],200);
+            return redirect()->route('sale.razorpay_payment',[$sale]);
         }catch(\Exception $e){
             DB::rollBack(); //rollback the transaction if an exception is thrown
-            return response()->json(['message' => 'Something went wrong. Please try again later'],500);
+            return response()->json([
+                'status' =>'failed',
+                'message' => $e->getMessage()],500);
         }
 
+    }
+
+    public function razorpayPayment(Sale $payment){
+        return view('sale.razorpay_payment')->with('payment',$payment);
+    }
+    public function processPayment(Request $request){
+        
+        if (!empty($request->razorpay_payment_id)) {
+            try {
+                $razorpaymentId = $request->razorpay_payment_id;
+                $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+                $response = $api->payment->fetch($razorpaymentId);
+                $sale = Sale::where('razorpay_order_id',session('order_id'))->first();
+                if($sale != null){
+                    $sale->status = 'paid';
+                    $sale->razorpay_payment_id = $razorpaymentId;
+                    $sale->save();
+                }
+                
+                session(['payment_id' => $razorpaymentId]);
+                return redirect()->route('sale.razorthankyou')->with('payment',$sale)
+                ->with('successMessage','Payment successful');
+            } catch (Exception $e) {
+                return back()->with('errorMessage',$e->getMessage());
+            }
+        }else{
+            return back()->with('errorMessage',$e->getMessage());
+        }
+       
+    }
+
+    public function RazorThankYou()
+    {
+        $payment = Sale::where('razorpay_payment_id',session('payment_id'))->first();
+        return view('sale.thankyou',compact('payment'));
+    }
+
+    public function downloadReceipt($payment_id){
+        $sale = Sale::where('razorpay_payment_id',$payment_id)->first();
+        
+        $data = view('sale.receipt',compact('sale'))->render();
+        $pdf = Browsershot::html($data)
+        ->paperSize('5.83', '8.27','in')
+        ->save($sale->invoice_number.'.pdf');
+        return response()->download(public_path($sale->invoice_number.'.pdf'));
     }
 }
