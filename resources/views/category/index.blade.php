@@ -1,14 +1,31 @@
 @extends('layouts.app')
 @section('content')
   <h5>Categories</h5>
-  <a href="{{ route('category.create')}}">Add New Category</a>
-  <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <div class="mb-5">
+    <a class=" bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" href="{{ route('category.create')}}">Add New Category</a>
+  </div>
+  <table  id="sortable-table" class="mt-10 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <tr>
       <th>Sl No</th>
-      <th>Category Name</th>
-      <th>Status</th>
-      <th>Created At</th>
+      <th>
+        <span class="flex items-center">
+          Category Name
+          <svg class="w-4 h-4 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m8 15 4 4 4-4m0-6-4-4-4 4"/>
+          </svg>
+        </span>
+      </th>
+      <th>
+        <span class="flex items-center">
+        Status&nbsp;&nbsp; <i class="fa-solid fa-sort"></i>
+        </span>
+      </th>
+      <th>
+        <span class="flex items-center">
+        Created At&nbsp;&nbsp; <i class="fa-solid fa-sort"></i>
+        </span>
+      </th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
@@ -42,4 +59,10 @@
     @endforeach
     </tbody>
   </table>
+  {{-- show the pagination links --}}
+  {{ $cat->links() }} 
+
 @endsection
+<script>
+
+</script>

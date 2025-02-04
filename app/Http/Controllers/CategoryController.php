@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index(){
         
-        $cat = Category::all();//select * from categories
+        $cat = Category::paginate(2);//select * from categories
         //go to the view and pass the value of categories through compact
         return view('category.index',compact('cat'));
     }

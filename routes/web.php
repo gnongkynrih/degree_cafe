@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\SaleController;
+use App\Http\Controllers\TableController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DegreeCafeController;
-use App\Http\Controllers\SaleController;
-use App\Http\Controllers\TableController;
 
 Route::get('/table',[TableController::class,'index'])->name('table.index');
 Route::post('/table/store',[TableController::class,'store'])->name('table.store');
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/report/sale',[ReportController::class,'saleReport'])->name('report.sale-report');
 
 require __DIR__.'/auth.php';
 Route::get('/show-tables',[SaleController::class,'showTables'])->name('sale.show_tables');
