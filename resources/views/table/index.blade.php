@@ -6,11 +6,11 @@
     Table
   </h5>
   </div>
-  <a id="addTable" href="#" class="m-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+  <a id="addTable" href="#" class="m-4 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 focus:outline-none">
     <i class="fa-solid fa-circle-plus"></i>&nbsp; Add New Table
   </a>
 </div>
- <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+ <table class="w-full text-sm text-left rtl:text-right text-gray-500">
    <tr>
      <th>Sl No</th>
      <th>Table No</th>
@@ -23,8 +23,8 @@
      <td>
       <div class="flex items-center mb-4">
           <input {{ $table->status =='active' ? 'checked' : ''}} id="S{{$table->id}}" type="checkbox" value="" 
-          class="chkStatus w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label id="L{{$table->id}}" for="" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $table->status }}</label>
+          class="chkStatus w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+          <label id="L{{$table->id}}" for="" class="ms-2 text-sm font-medium text-gray-900">{{ $table->status }}</label>
       </div>
      </td>
    </tr>

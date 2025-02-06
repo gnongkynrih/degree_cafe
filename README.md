@@ -1,3 +1,22 @@
+Roles and Permissions
+https://spatie.be/docs/laravel-permission/v6/installation-laravel
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan migrate
+//add HasRoles Trait in your User model inside App/Models/User.php
+Use HasRoles;
+
+//create new roles and permission
+//to create new roles and permisison we will use seeder
+php artisan make:seeder RoleAndPermissionSeeder
+//TO seed the seeder
+php artisan db:seed --class=RoleAndPermissionSeeder
+
+//to user factory to create new records
+php artisan make:factory MenuFactory
+//for Menu model to use MenuFactory in the Menu.php file we
+have to write use HasFactory;
+
 razorpay
 
 composer require razorpay/razorpay

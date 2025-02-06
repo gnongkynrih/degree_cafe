@@ -7,7 +7,7 @@ method="POST"
 action="{{route('degreecafe.store')}}">
   @csrf
   <div class="mb-5">
-    <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Cafe Name</label>
+    <label class="block mb-2 text-sm font-medium text-green-700">Cafe Name</label>
     <input
     type="text"
     name="name"
@@ -17,7 +17,7 @@ action="{{route('degreecafe.store')}}">
     @enderror
   </div>
   <div class="mb-5">
-    <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Cafe Address</label>
+    <label class="block mb-2 text-sm font-medium text-green-700">Cafe Address</label>
     <textarea name="address" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Enter item description">
       {{$cafe ? $cafe->address : old('address')}}
     </textarea>
@@ -27,7 +27,7 @@ action="{{route('degreecafe.store')}}">
     @enderror
   </div>
   <div class="mb-5">
-    <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">Phone</label>
+    <label class="block mb-2 text-sm font-medium text-green-700">Phone</label>
     <input
     type="number"
     name="phone"
@@ -37,7 +37,7 @@ action="{{route('degreecafe.store')}}">
     @enderror
   </div>
   <div class="mb-5">
-    <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">GST</label>
+    <label class="block mb-2 text-sm font-medium text-green-700">GST</label>
     <input
     type="text"
     name="gst_no"
@@ -47,7 +47,7 @@ action="{{route('degreecafe.store')}}">
     @enderror
   </div>
   <div class="mb-5">
-    <label class="block mb-2 text-sm font-medium text-green-700 dark:text-green-500">email</label>
+    <label class="block mb-2 text-sm font-medium text-green-700">email</label>
     <input
     type="email"
     name="email"

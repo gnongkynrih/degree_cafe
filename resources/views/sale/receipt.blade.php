@@ -4,7 +4,7 @@
     <div class="text-center mb-5 text-sm">
         <h4 class="underline">Degree Cafe</h4>
         <h5>NIELIT Shillong</h5>
-        <h4 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Receipt</h4>
+        <h4 class="text-2xl font-bold tracking-tight text-gray-900">Receipt</h4>
 
         <table class="table table-bordered table-responsive">
           <thead>

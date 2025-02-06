@@ -4,7 +4,7 @@
     
     Add New Menu Item</a>
   <h1 class="mt-5">list all the menu items</h1>
-  <table  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <table  class="w-full text-sm text-left rtl:text-right text-gray-500">
     <tr>
       <th>Sl No</th>
       <th>Item Name</th>

@@ -4,8 +4,8 @@
   <div class="mb-5">
     <a class=" bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" href="{{ route('category.create')}}">Add New Category</a>
   </div>
-  <table  id="sortable-table" class="mt-10 w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+  <table  id="sortable-table" class="mt-10 w-full text-sm text-left rtl:text-right text-gray-500">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
       <tr>
       <th>Sl No</th>
       <th>
@@ -32,14 +32,14 @@
     </thead>
     <tbody>
     @foreach ($cat as $category)
-      <tr class="bg-white border-b border-red-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+      <tr class="bg-white border-b border-red-200 hover:bg-gray-50">
         <td>{{ $loop->iteration }}</td>
         <td> <?php echo$category->name; ?></td>
         <td>{{ $category->status }}</td>
         <td>{{ $category->created_at }}</td>
         <td>
           <a 
-          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+          class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
           href="{{ route('category.edit', $category->id) }}">Edit</a>
         </td>
         <td>
@@ -51,7 +51,7 @@
             @csrf
             @method('DELETE')
             <button
-            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
             type="submit">Delete</button>
           </form>
         </td>
