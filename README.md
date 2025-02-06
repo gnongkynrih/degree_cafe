@@ -40,6 +40,10 @@ pdf
 npm install puppeteer
 composer require spatie/browsershot
 
+for ui design
+https://flowbite.com/docs/components/card/
+and tailwind
+
 //composer require barryvdh/laravel-dompdf
 reference... https://www.positronx.io/how-to-generate-pdf-in-laravel-with-dompdf/#tc_10431_02
 
