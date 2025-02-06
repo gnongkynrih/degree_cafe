@@ -17,8 +17,13 @@ php artisan make:factory MenuFactory
 //for Menu model to use MenuFactory in the Menu.php file we
 have to write use HasFactory;
 
-razorpay
+CHART
+chartjs
 
+PDF
+spatie browsershot
+
+razorpay
 composer require razorpay/razorpay
 https://razorpay.com/docs/payments/server-integration/php/install/#prerequisites
 
@@ -39,9 +44,12 @@ composer require spatie/browsershot
 reference... https://www.positronx.io/how-to-generate-pdf-in-laravel-with-dompdf/#tc_10431_02
 
 after cloning the project
+-- rename .env.example to .env
+-- run php artisan key:generate
 -- run composer install
 -- run npm install
 -- run npm run dev
+-- in .env change the database credentials
 -- execute php artisan migrate
 
 To create a new model and migratioon together
