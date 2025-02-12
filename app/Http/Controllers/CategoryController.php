@@ -23,8 +23,13 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|string|min:4|max:25|unique:categories,name'
         ]);
+        if($request->hasFile('image_url')){
+            $image = $request->file('image_url');
+            $imagePath = $image->storeAs('images',$image->hashName());
+        }
         Category::create([
             'name' => $request->category_name,
+            'image_url' => $imagePath,
             'status' =>'active'
         ]);
         // return redirect()->back();

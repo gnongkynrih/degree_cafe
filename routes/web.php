@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DegreeCafeController;
 
@@ -47,8 +48,8 @@ Route::middleware('auth')->group(function () {
 
     
 });
-
 Route::middleware(['auth','can:frontdesk'])->group(function () {
+    Route::post('/send-email',[MailController::class,'send'])->name('mail.send');
     Route::get('/report/sale',[ReportController::class,'saleReport'])->name('report.sale-report');
     Route::get('/show-tables',[SaleController::class,'showTables'])->name('sale.show_tables');
     Route::get('/',[SaleController::class,'pos'])->name('sale.pos');

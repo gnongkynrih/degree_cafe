@@ -56,5 +56,17 @@
           </svg>
       </a>
   </div>
+  <div class="mr-5 mb-5 max-w-sm min-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+      <a href="{{ route('report.sale-report')}}">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Send email</h5>
+      </a>
+      <p class="mb-3 font-normal text-gray-700">email testing</p>
+      <form action="{{ route('mail.send')}}" method="POST">
+        @csrf
+        <input type="email" name="email" placeholder="Enter email">
+        <button type="submit">Send</button>
+      </form>
+      
+  </div>
 </div>
 @endsection

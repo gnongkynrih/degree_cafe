@@ -61,10 +61,38 @@ php artisan make:model Category -m
 -- where -m means create the migration file
 -- Model name should be propercase and singular
 
+if a table already exist and you want to add extra columns
+then you cannot use the same way as make:model instead we use
+php artisan make:migration name_of_the_migration --table=tablename
+eg
+php artisan make:migration add_column_image_url_to_table_categories --table=categories
 TO create a controller
 php artisan make:controller CategoryController
 
 We can do validation using form request. TO create a form request
 php artisan make:request CreateCategoryRequest
-//create a symbolic link
+
+// to store images in the app, we can use storage/app folder.
+//to use this storage we need to create a symbolic link in the public folder. we do that by the following command
 php artisan storage:link
+
+the form must have
+
+<form  
+  enctype="multipart/form-data" to upload image
+
+TO SEND EMAIL, WE WILL TRY MAILHOG
+download mailhog from https://mailhog.io/download/ and install it
+in you .env file
+
+MAIL_MAILER=smtp
+MAIL_HOST=127.0.0.1
+MAIL_PORT=1025
+
+to start the mailhog server
+mailhog
+to view the email
+http://127.0.0.1:8025
+
+To create the email we use the following command
+php artisan make:mail SendWelcomeEmail
